@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>POS - Glins Cravings</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .pos-wrapper {
+            display: grid;
+            grid-template-columns: 1.8fr 1fr;
+            gap: 20px;
+            padding: 20px;
+            height: 600px;
+        }
+
+        /* Information Input Bar */
+        .info-bar {
+            display: flex;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid #000;
+            margin-bottom: 20px;
+        }
+
+        .info-input {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #000;
+            font-weight: 700;
+            flex: 1;
+        }
+
+        .menu-scroll {
+            height: 440px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .cart-container {
+            background: white;
+            border: 3px solid #000;
+            border-radius: 25px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 8px 8px 0px #B86B77;
+        }
+
+        #order-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin: 15px 0;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container" style="width: 1100px; height: auto;">
+        <div class="dash-header">
+            <img src="logo.png" alt="Logo" class="dash-logo">
+            <h1 class="dash-title">New Transaction</h1>
+        </div>
+
+        <div class="pos-wrapper">
+            <div class="left-side">
+                
+                <div class="info-bar">
+                    <div style="flex: 2;">
+                        <label style="font-size: 12px; font-weight: 800;">CUSTOMER NAME:</label><br>
+                        <input type="text" id="custName" class="info-input" placeholder="Enter name...">
+                    </div>
+                    <div style="flex: 1;">
+                        <label style="font-size: 12px; font-weight: 800;">TIME:</label><br>
+                        <input type="time" id="orderTime" class="info-input">
+                    </div>
+                </div>
+
+                <div class="menu-scroll">
+                    <div class="product-grid">
+                        <div class="product-card" onclick="add('Carbonara Buldak', 109)">Carbonara Buldak<br>₱109</div>
+                        <div class="product-card" onclick="add('Cheese Buldak', 109)">Cheese Buldak<br>₱109</div>
+                        <div class="product-card" onclick="add('Mozza Corndog', 75)">Mozza Corndog<br>₱75</div>
+                        <div class="product-card" onclick="add('Potato Corndog', 85)">Potato Corndog<br>₱85</div>
+                        <div class="product-card" onclick="add('Buttered Corn', 45)">Buttered Corn<br>₱45</div>
+                        <div class="product-card" onclick="add('Strawberry Milk', 59)">Strawberry Milk<br>₱59</div>
+                        <div class="product-card" onclick="add('Melon Gulaman', 30)">Melon Gulaman<br>₱30</div>
+                        <div class="product-card" onclick="add('Special Turon', 25)">Special Turon<br>₱25</div>
+                        <div class="product-card" onclick="add('Hotdog on Stick', 35)">Hotdog on Stick<br>₱35</div>
+                        <div class="product-card" onclick="add('Kwek-Kwek', 25)">Kwek-Kwek<br>₱25</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart-container">
+                <h3 style="text-align: center; margin: 0; border-bottom: 2px dashed #B86B77; padding-bottom: 10px;">RECEIPT</h3>
+                <div id="order-list">
+                    <p style="text-align: center; color: #999; margin-top: 50px;">Waiting for selection...</p>
+                </div>
+                
+                <div style="border-top: 3px solid #000; padding-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 24px; font-weight: 900; color: #B86B77;">
+                        <span>TOTAL</span>
+                        <span id="total-val">₱0.00</span>
+                    </div>
+                    <button class="action-btn" style="width: 100%; height: 55px; background: #28a745; color: white; margin-top: 15px; font-size: 20px;" onclick="complete()">
+                        CONFIRM SALE
+                    </button>
+                    <button class="action-btn" style="width: 100%; margin-top: 5px; border:none; background:none; text-decoration: underline; color: #666;" onclick="location.reload()">
+                        Cancel Transaction
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set default time to "now"
+        document.getElementById('orderTime').value = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false});
+
+        let total = 0;
+        function add(name, price) {
+            const list = document.getElementById('order-list');
+            if(total === 0) list.innerHTML = '';
+            
+            const item = document.createElement('div');
+            item.style = "display:flex; justify-content:space-between; padding: 8px 0; border-bottom: 1px solid #eee; font-weight:700;";
+            item.innerHTML = `<span>${name}</span> <span>₱${price}</span>`;
+            list.appendChild(item);
+            
+            total += price;
+            document.getElementById('total-val').innerText = `₱${total.toFixed(2)}`;
+        }
+
+        function complete() {
+            const name = document.getElementById('custName').value;
+            if(total === 0) return alert("Select items first!");
+            
+            alert("Order for " + (name || "Guest") + " has been saved!");
+            location.reload();
+        }
+    </script>
+</body>
+</html>
