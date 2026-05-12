@@ -221,6 +221,7 @@
         function completeSale() {
             if(cartItems.length === 0) return alert("Add items first!");
 
+            // This is the data object your programmers will use
             const finalOrder = {
                 customerName: document.getElementById('custName').value || "Guest",
                 orderTime: new Date().toLocaleTimeString(),
@@ -228,11 +229,12 @@
                 totalAmount: total
             };
 
-           
+            // This prints the data in the browser console for your programmers to see
             console.log("SENDING DATA TO BACKEND:", finalOrder);
 
             alert("Transaction for " + finalOrder.customerName + " Saved! (Check Console for Data)");
             
+            // Reset for next customer
             cartItems = [];
             document.getElementById('custName').value = '';
             renderCart();
