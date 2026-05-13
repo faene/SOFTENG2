@@ -55,47 +55,49 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-    <td>#K001</td>
-    <td>Mozzarella Corndog</td>
-    <td>Korean Snacks</td>
-    <td>40</td>
-    <td>₱75.00</td>
-    <td>2025-05-10</td>
-    <td><span class="status-badge">Available</span></td>
-    <td>
-        <i class="fa-solid fa-pen" style="color: #B86B77; cursor: pointer;"></i>
-        <i class="fa-solid fa-trash" style="color: #666; cursor: pointer; margin-left: 10px;"></i>
-    </td>
-</tr>
-<tr>
-    <td>#F002</td>
-    <td>Special Turon w/ Cheese</td>
-    <td>Pinoy Classics</td>
-    <td>15</td>
-    <td>₱25.00</td>
-    <td>2025-05-06</td>
-    <td><span class="status-badge" style="background-color: #ffc107;">Low Stock</span></td>
-    <td>
-        <i class="fa-solid fa-pen" style="color: #B86B77; cursor: pointer;"></i>
-        <i class="fa-solid fa-trash" style="color: #666; cursor: pointer; margin-left: 10px;"></i>
-    </td>
-</tr>
-<tr>
-    <td>#K003</td>
-    <td>Spicy Tteokbokki Bowl</td>
-    <td>Korean Snacks</td>
-    <td>25</td>
-    <td>₱120.00</td>
-    <td>2025-05-08</td>
-    <td><span class="status-badge">Available</span></td>
-    <td>
-        <i class="fa-solid fa-pen" style="color: #B86B77; cursor: pointer;"></i>
-        <i class="fa-solid fa-trash" style="color: #666; cursor: pointer; margin-left: 10px;"></i>
-    </td>
-</tr>
-                </tbody>
+              <tbody>
+    <tr>
+        <td>#K001</td>
+        <td>Mozzarella Corndog</td>
+        <td>Korean Snacks</td>
+        <td>40</td>
+        <td>₱75.00</td>
+        <td>2025-05-10</td>
+        <td><span class="status-badge">Available</span></td>
+        <td>
+            <i class="fa-solid fa-pen" style="color: #B86B77; cursor: pointer;" onclick="editItem('#K001')"></i>
+            <i class="fa-solid fa-trash" style="color: #666; cursor: pointer; margin-left: 10px;" onclick="deleteItem('#K001')"></i>
+        </td>
+    </tr>
+
+    <tr>
+        <td>#F002</td>
+        <td>Special Turon w/ Cheese</td>
+        <td>Pinoy Classics</td>
+        <td>15</td>
+        <td>₱25.00</td>
+        <td>2025-05-06</td>
+        <td><span class="status-badge" style="background-color: #ffc107;">Low Stock</span></td>
+        <td>
+            <i class="fa-solid fa-pen" style="color: #B86B77; cursor: pointer;" onclick="editItem('#F002')"></i>
+            <i class="fa-solid fa-trash" style="color: #666; cursor: pointer; margin-left: 10px;" onclick="deleteItem('#F002')"></i>
+        </td>
+    </tr>
+
+    <tr>
+        <td>#K003</td>
+        <td>Spicy Tteokbokki Bowl</td>
+        <td>Korean Snacks</td>
+        <td>25</td>
+        <td>₱120.00</td>
+        <td>2025-05-08</td>
+        <td><span class="status-badge">Available</span></td>
+        <td>
+            <i class="fa-solid fa-pen" style="color: #B86B77; cursor: pointer;" onclick="editItem('#K003')"></i>
+            <i class="fa-solid fa-trash" style="color: #666; cursor: pointer; margin-left: 10px;" onclick="deleteItem('#K003')"></i>
+        </td>
+    </tr>
+</tbody>
             </table>
         </div>
 
@@ -166,8 +168,18 @@
     }
 
     function saveItem() {
-        alert("Product saved locally! (Backend teammate will link this to MySQL later)");
+        alert("Product saved locally!");
         closeModal();
+    }
+
+    function editItem(id) {
+        alert("Opening Edit Screen for " + id);
+    }
+
+    function deleteItem(id) {
+        if(confirm("Are you sure you want to delete " + id + "?")) {
+            alert("Item deleted!");
+        }
     }
 </script>
 
